@@ -4,6 +4,7 @@ use std::io;
 
 fn main() {
     let secret_number = rand::thread_rng().gen_range(1..=100);
+    let mut attemps: u8 = 0;
 
     println!("Guess the number!");
 
@@ -27,10 +28,17 @@ fn main() {
         println!("You guessed: {guess}");
 
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
+            Ordering::Less => {
+                println!("Too small!");
+                attemps += 1
+            }
+            Ordering::Greater => {
+                println!("Too big!");
+                attemps += 1
+            }
             Ordering::Equal => {
                 println!("You win!");
+                println!("Attemps: {attemps}");
                 break;
             }
         }
